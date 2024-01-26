@@ -1,8 +1,10 @@
 # Auth-ASP.NET-API
+
+Test on : https://auth-jwt-2.onrender.com/auth/login
+
 Authentification in ASP.NET Web API using :
 - Json Web Token
 - Google (Credential from Google Cloud Platform)
-
 ### Run the project ###
 
 Packages will be restored automatically. If you are not redirected to Swagger UI, access the UI via : <br/>
