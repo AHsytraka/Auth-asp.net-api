@@ -1,4 +1,4 @@
-namespace Auth_Jwt;
+namespace Authentication_api;
 
 public class WeatherForecast
 {

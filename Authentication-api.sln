@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auth-Jwt", "Auth-Jwt.csproj", "{BF7F9438-E49D-4A25-BD6C-28B5259BB64F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authentication-api", "Authentication-api.csproj", "{BB5CF848-9B18-476D-AA95-EBA1EC74806A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BF7F9438-E49D-4A25-BD6C-28B5259BB64F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BF7F9438-E49D-4A25-BD6C-28B5259BB64F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BF7F9438-E49D-4A25-BD6C-28B5259BB64F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BF7F9438-E49D-4A25-BD6C-28B5259BB64F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB5CF848-9B18-476D-AA95-EBA1EC74806A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB5CF848-9B18-476D-AA95-EBA1EC74806A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB5CF848-9B18-476D-AA95-EBA1EC74806A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB5CF848-9B18-476D-AA95-EBA1EC74806A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {7038435C-9D59-4634-A8E6-B55A0BF39602}
+		SolutionGuid = {7298EABB-315F-4DAF-97B8-9AECFBD77746}
 	EndGlobalSection
 EndGlobal

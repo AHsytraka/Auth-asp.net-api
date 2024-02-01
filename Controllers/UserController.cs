@@ -1,37 +1,67 @@
-﻿using Auth_Jwt.Helpers;
-using Auth_Jwt.Models;
-using Auth_Jwt.Repositories;
+﻿using System.IdentityModel.Tokens.Jwt;
+using Authentication_api.Repository;
+using Authentication_api.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Auth_Jwt.Controllers;
+namespace Authentication_api;
 
 [ApiController]
 [Route("[Controller]")]
 public class UserController : ControllerBase
 {
     private readonly IUserRepository _userRepository;
-
-    public UserController(IUserRepository userRepository)
+    private readonly JwtService _jwtService;
+    public UserController(IUserRepository userRepository, JwtService jwtService)
     {
         _userRepository = userRepository;
+        _jwtService = jwtService;
     }
 
-    [HttpPost("authenticate")]
-    public IActionResult Authenticate(AuthenticateRequest model)
+    [HttpPost("Login")]
+    public IActionResult Login(string email,string pwd)
     {
-        var response = _userRepository.Authenticate(model);
+        try {
 
-        if (response == null)
-            return BadRequest(new { message = "Username or password is incorrect" });
+            var usr = _userRepository.GetUserByEmail(email);
+            var jwt = _jwtService.Generator(usr.Uid, usr.Role);
+            Response.Cookies.Append("jwt", jwt, new CookieOptions {
+                HttpOnly = true
+            });
+            return Ok(new { message = "Success"});
 
-        return Ok(response);
+        } catch(Exception)
+        {
+            return BadRequest(new { message = "An error occurred while processing your request" });
+        }
     }
 
-    [Authorize]
-    [HttpGet]
-    public IActionResult GetAll()
+    [HttpGet("getUser")]
+    [Authorize(Roles = "Admin")]
+    public IActionResult GetUser()
     {
-        var users = _userRepository.GetAll();
-        return Ok(users);
+        try{
+            var jwt = Request.Cookies["jwt"];
+            // Parse the issuer from the JWT as an integer
+
+            var token = _jwtService.Checker(jwt);
+            if (token == null)
+            {
+                return Unauthorized(new { message = "Invalid token" });
+            }
+            int Uid = int.Parse(token.Issuer);
+            var user = _userRepository.GetUserById(Uid);
+            return Ok(user);
+        }catch(Exception)
+        {
+            throw;
+        }
+    }
+
+    [HttpPost("Logout")]
+    public IActionResult Logout()
+    {
+        Response.Cookies.Delete("jwt");
+        return Ok( new {message = "success"});
     }
 }
