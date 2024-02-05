@@ -1,10 +1,9 @@
-﻿using System.IdentityModel.Tokens.Jwt;
-using Authentication_api.Repository;
+﻿using Authentication_api.Repository;
 using Authentication_api.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Authentication_api;
+namespace Authentication_api.Controllers;
 
 [ApiController]
 [Route("[Controller]")]
@@ -40,22 +39,17 @@ public class UserController : ControllerBase
     [Authorize(Roles = "Admin")]
     public IActionResult GetUser()
     {
-        try{
-            var jwt = Request.Cookies["jwt"];
-            // Parse the issuer from the JWT as an integer
+        var jwt = Request.Cookies["jwt"];
+        // Parse the issuer from the JWT as an integer
 
-            var token = _jwtService.Checker(jwt);
-            if (token == null)
-            {
-                return Unauthorized(new { message = "Invalid token" });
-            }
-            int Uid = int.Parse(token.Issuer);
-            var user = _userRepository.GetUserById(Uid);
-            return Ok(user);
-        }catch(Exception)
+        var token = _jwtService.Checker(jwt);
+        if (token == null)
         {
-            throw;
+            return Unauthorized(new { message = "Invalid token" });
         }
+        int uid = int.Parse(token.Issuer);
+        var user = _userRepository.GetUserById(uid);
+        return Ok(user);
     }
 
     [HttpPost("Logout")]
